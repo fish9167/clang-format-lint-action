@@ -101,16 +101,20 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
     out = []
     print("extensions: %s" % extensions)
     print("exclude: %s" % exclude)
-    with io.open('files.txt', 'r') as pattern:
-        for pattern in exclude:
-            fpaths = [
-                x for x in fpaths if not fnmatch.fnmatch(x, pattern)
-            ]
-        for f in fpaths:
-            ext = os.path.splitext(f)[1][1:]
-            if ext in extensions:
-                out.append(f)
-    print("clange file list: %s" %out)
+    fpaths = []
+    with io.open('files.txt', 'r') as f:
+        for line in f.readlines():
+            fpaths.append(line)
+    print("fpaths: ", fpaths)
+    for pattern in exclude:
+        fpaths = [
+            x for x in fpaths if not fnmatch.fnmatch(x, pattern)
+        ]
+    for f in fpaths:
+        ext = os.path.splitext(f)[1][1:]
+        if ext in extensions:
+            out.append(f)
+    print("clange file list: %s" % out)
     return out
 
 
