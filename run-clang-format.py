@@ -380,6 +380,7 @@ def main():
         exclude=excludes,
         extensions=args.extensions.split(','))
 
+    print("check files: %s" %files)
     if not files:
         print_trouble(parser.prog, 'No files found', use_colors=colored_stderr)
         return ExitStatus.TROUBLE
