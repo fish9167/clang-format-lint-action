@@ -116,7 +116,7 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
                     out.append(f)
         else:
             out.append(file)
-return out
+    return out
 
 
 def make_diff(file, original, reformatted):
