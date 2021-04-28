@@ -31,7 +31,6 @@ try:
 except ImportError:
     DEVNULL = open(os.devnull, "wb")
 
-
 DEFAULT_EXTENSIONS = 'c,h,C,H,cpp,hpp,cc,hh,c++,h++,cxx,hxx'
 DEFAULT_CLANG_FORMAT_IGNORE = '.clang-format-ignore'
 
@@ -92,6 +91,7 @@ def list_files(files, recursive=False, extensions=None, exclude=None):
             out.append(file)
     return out
 
+
 def list_files2(files, recursive=False, extensions=None, exclude=None):
     if extensions is None:
         extensions = []
@@ -99,24 +99,10 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
         exclude = []
 
     out = []
+    print("extensions: %s" % extensions)
+    print("exclude: %s" % exclude)
     with io.open('files.txt', 'r') as pattern:
-        if recursive and os.path.isdir(pattern):
-            for pattern in exclude:
-                dnames[:] = [
-                    x for x in dnames
-                    if
-                    not fnmatch.fnmatch(os.path.join(dirpath, x), pattern)
-                ]
-            fpaths = [
-                x for x in fpaths if not fnmatch.fnmatch(x, pattern)
-            ]
-            for f in fpaths:
-                ext = os.path.splitext(f)[1][1:]
-                if ext in extensions:
-                    out.append(f)
-        else:
-            out.append(pattern)
-    os.remove('files.txt')
+        out.append(pattern)
     return out
 
 
@@ -381,7 +367,7 @@ def main():
         exclude=excludes,
         extensions=args.extensions.split(','))
 
-    print("check files: %s" %files)
+    print("check files: %s" % files)
     if not files:
         print_trouble(parser.prog, 'No files found', use_colors=colored_stderr)
         return ExitStatus.TROUBLE
