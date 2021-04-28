@@ -103,14 +103,6 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
     print("exclude: %s" % exclude)
     with io.open('files.txt', 'r') as pattern:
         for pattern in exclude:
-            # os.walk() supports trimming down the dnames list
-            # by modifying it in-place,
-            # to avoid unnecessary directory listings.
-            dnames[:] = [
-                x for x in dnames
-                if
-                not fnmatch.fnmatch(os.path.join(dirpath, x), pattern)
-            ]
             fpaths = [
                 x for x in fpaths if not fnmatch.fnmatch(x, pattern)
             ]
