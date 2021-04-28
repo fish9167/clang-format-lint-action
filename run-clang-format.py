@@ -115,7 +115,7 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
         if ext in extensions:
             out.append(f)
     print("clange file list: %s" % out)
-    os.remove('files.tx')
+    os.remove('files.txt')
     return out
 
 
