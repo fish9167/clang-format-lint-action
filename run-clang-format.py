@@ -102,7 +102,23 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
     print("extensions: %s" % extensions)
     print("exclude: %s" % exclude)
     with io.open('files.txt', 'r') as pattern:
-        out.append(pattern)
+        for pattern in exclude:
+            # os.walk() supports trimming down the dnames list
+            # by modifying it in-place,
+            # to avoid unnecessary directory listings.
+            dnames[:] = [
+                x for x in dnames
+                if
+                not fnmatch.fnmatch(os.path.join(dirpath, x), pattern)
+            ]
+            fpaths = [
+                x for x in fpaths if not fnmatch.fnmatch(x, pattern)
+            ]
+        for f in fpaths:
+            ext = os.path.splitext(f)[1][1:]
+            if ext in extensions:
+                out.append(f)
+    print("clange file list: %s" %out)
     return out
 
 
