@@ -92,6 +92,32 @@ def list_files(files, recursive=False, extensions=None, exclude=None):
             out.append(file)
     return out
 
+def list_files2(files, recursive=False, extensions=None, exclude=None):
+    if extensions is None:
+        extensions = []
+    if exclude is None:
+        exclude = []
+
+    out = []
+    with io.open('files.txt', 'r') as pattern:
+        if recursive and os.path.isdir(file):
+            for pattern in exclude:
+                dnames[:] = [
+                    x for x in dnames
+                    if
+                    not fnmatch.fnmatch(os.path.join(dirpath, x), pattern)
+                ]
+            fpaths = [
+                x for x in fpaths if not fnmatch.fnmatch(x, pattern)
+            ]
+            for f in fpaths:
+                ext = os.path.splitext(f)[1][1:]
+                if ext in extensions:
+                    out.append(f)
+        else:
+            out.append(file)
+return out
+
 
 def make_diff(file, original, reformatted):
     return list(
@@ -348,7 +374,7 @@ def main():
     excludes = excludes_from_file(DEFAULT_CLANG_FORMAT_IGNORE)
     excludes.extend(split_list_arg(args.exclude))
 
-    files = list_files(
+    files = list_files2(
         split_list_arg(args.files),
         recursive=args.recursive,
         exclude=excludes,
