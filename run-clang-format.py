@@ -100,7 +100,7 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
 
     out = []
     with io.open('files.txt', 'r') as pattern:
-        if recursive and os.path.isdir(file):
+        if recursive and os.path.isdir(pattern):
             for pattern in exclude:
                 dnames[:] = [
                     x for x in dnames
@@ -115,7 +115,7 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
                 if ext in extensions:
                     out.append(f)
         else:
-            out.append(file)
+            out.append(pattern)
     os.remove('files.txt')
     return out
 
@@ -307,7 +307,7 @@ def main():
         type=int,
         default=0,
         help='run N clang-format jobs in parallel'
-        ' (default number of cpus + 1)')
+             ' (default number of cpus + 1)')
     parser.add_argument(
         '--color',
         default='auto',
@@ -320,7 +320,7 @@ def main():
         action='append',
         default=[],
         help='exclude paths matching the given glob-like pattern(s)'
-        ' from recursive search')
+             ' from recursive search')
     parser.add_argument(
         '--style',
         help='Formatting style to use (default: file)',
@@ -387,7 +387,7 @@ def main():
         return ExitStatus.TROUBLE
 
     if not args.quiet:
-      print('Processing %s files: %s' % (len(files), ', '.join(files)))
+        print('Processing %s files: %s' % (len(files), ', '.join(files)))
 
     njobs = args.j
     if njobs == 0:
