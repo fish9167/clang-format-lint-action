@@ -99,7 +99,7 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
         exclude = []
 
     out = []
-    with io.open('/home/runner/files.txt', 'r') as pattern:
+    with io.open('files.txt', 'r') as pattern:
         if recursive and os.path.isdir(file):
             for pattern in exclude:
                 dnames[:] = [
@@ -116,6 +116,7 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
                     out.append(f)
         else:
             out.append(file)
+    os.remove('files.txt')
     return out
 
 
