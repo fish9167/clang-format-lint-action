@@ -104,7 +104,8 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
     fpaths = []
     with io.open('files.txt', 'r') as f:
         for line in f.readlines():
-            fpaths.append("./" + line)
+            for f_str in line.split():
+                fpaths.append("./" + f_str)
     print("fpaths: ", fpaths)
     for pattern in exclude:
         fpaths = [
