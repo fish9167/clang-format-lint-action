@@ -384,7 +384,7 @@ def main():
     print("check files: %s" % files)
     if not files:
         print_trouble(parser.prog, 'No files found', use_colors=colored_stderr)
-        os.popen("echo ::set-output name=changed::0")
+        #os.popen("echo ::set-output name=changed::0")
         return ExitStatus.SUCCESS
         #return ExitStatus.TROUBLE
 
@@ -432,7 +432,7 @@ def main():
                 if not args.quiet:
                     print_diff(outs, use_color=colored_stdout)
                 if retcode == ExitStatus.SUCCESS:
-                    os.popen("echo ::set-output name=changed::1")
+                    #os.popen("echo ::set-output name=changed::1")
                     retcode = ExitStatus.DIFF
 
     return retcode
