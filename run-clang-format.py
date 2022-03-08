@@ -114,7 +114,8 @@ def list_files2(files, recursive=False, extensions=None, exclude=None):
     for f in fpaths:
         ext = os.path.splitext(f)[1][1:]
         if ext in extensions:
-            out.append(f)
+            if os.path.exists(f):
+                out.append(f)
     print("need check file: %s" % out)
     os.remove('files.txt')
     return out
